@@ -1,6 +1,8 @@
 package com.cesde.gimnasio.model.entity;
 
 import com.cesde.gimnasio.model.enums.TipoPlan;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,4 +29,9 @@ public class Plan extends BaseEntity {
 
     @OneToMany(mappedBy = "plan")
     private List<Suscripcion> suscripciones = new ArrayList<>();
+
+    @JsonCreator
+    public Plan(@JsonProperty("id") Long id) {
+        setId(id);
+    }
 }

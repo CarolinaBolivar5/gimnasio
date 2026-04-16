@@ -24,6 +24,12 @@ public class SuscripcionService {
     @Transactional
     public Suscripcion crearSuscripcion(Suscripcion suscripcion) {
         Socio socio = resolverSocio(suscripcion.getSocio());
+
+        // REGLA #4 (VALIDACIÓN)
+        if (socio.getEstadoSalud() == null || socio.getEstadoSalud().trim().isEmpty()) {
+            throw new IllegalArgumentException("No se puede crear la suscripción: el socio no tiene estado de salud registrado");
+        }
+
         Plan plan = resolverPlan(suscripcion.getPlan());
 
         List<Suscripcion> suscripcionesActuales = suscripcionRepository.findBySocioId(socio.getId());

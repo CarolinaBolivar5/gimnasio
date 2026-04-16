@@ -1,6 +1,8 @@
 package com.cesde.gimnasio.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -31,4 +33,9 @@ public class Socio extends BaseEntity{
 
     @OneToMany(mappedBy = "socio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Suscripcion> suscripciones = new ArrayList<>();
+
+    @JsonCreator
+    public Socio(@JsonProperty("id") Long id) {
+        setId(id);
+    }
 }
