@@ -1,1 +1,0 @@
-Esta  nota se crea como un archivo para que no se borre la carpeta service al subirla a GitHub, ya que esta carpeta es necesaria para la estructura del proyecto. Este archivo no contiene código ni información relevante para el funcionamiento del sistema, simplemente es un marcador para mantener la organización del proyecto.

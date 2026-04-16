@@ -7,6 +7,7 @@ import com.cesde.gimnasio.repository.PlanRepository;
 import com.cesde.gimnasio.repository.SocioRepository;
 import com.cesde.gimnasio.repository.SuscripcionRepository;
 import com.cesde.gimnasio.service.SuscripcionService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,6 +55,11 @@ public class SuscripcionController {
 
     @PostMapping
     public ResponseEntity<Suscripcion> crear(@RequestBody Suscripcion suscripcion) {
+        Socio socio = resolverSocio(suscripcion.getSocio());
+        Plan plan = resolverPlan(suscripcion.getPlan());
+        suscripcion.setId(null);
+        suscripcion.setSocio(socio);
+        suscripcion.setPlan(plan);
         return ResponseEntity.status(HttpStatus.CREATED).body(suscripcionService.crearSuscripcion(suscripcion));
     }
 
