@@ -29,6 +29,8 @@ public class Suscripcion extends BaseEntity{
 
     private boolean activa;
 
+    private String codigoAcceso;
+
     @ManyToOne
     @JoinColumn(name = "socio_id", nullable = false)
     @JsonIgnoreProperties("suscripciones")
