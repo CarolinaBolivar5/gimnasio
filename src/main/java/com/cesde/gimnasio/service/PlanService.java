@@ -28,6 +28,9 @@ public class PlanService {
 
     @Transactional
     public Plan crear(Plan plan) {
+        if (plan == null) {
+            throw new IllegalArgumentException("El plan no puede ser nulo");
+        }
         plan.setId(null);
         aplicarDescuentoSiEsAnual(plan);
         return planRepository.save(plan);
@@ -52,8 +55,15 @@ public class PlanService {
     }
 
     private void aplicarDescuentoSiEsAnual(Plan plan) {
-        if (plan.getNombre() == TipoPlan.ANUAL && plan.getPrecio() != null) {
-            plan.setPrecio(plan.getPrecio() * (1 - DESCUENTO_ANUAL));
+        if (!TipoPlan.ANUAL.equals(plan.getNombre())) return;
+
+        if (plan.getPrecio() == null) {
+            throw new IllegalArgumentException("El precio no puede ser nulo para un plan anual");
         }
+        if (plan.getPrecio() <= 0) {
+            throw new IllegalArgumentException("El precio debe ser mayor a cero");
+        }
+
+        plan.setPrecio(plan.getPrecio() * (1 - DESCUENTO_ANUAL));
     }
 }
